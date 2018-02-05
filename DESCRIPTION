@@ -1,0 +1,16 @@
+Package: CFGL
+Type: An adaptive procedure for inferring condition-specific gene co-expression network
+Title: What the Package Does (Title Case)
+Version: 0.9.0
+Authors@R: c(person("Yafei", "Lyu", role = c("aut", "cre"),email = "yul199@psu.edu"),
+	      person("Qunhua", "Li", role = "aut",email = "yul199@psu.edu"))
+Maintainer@R: person("Yafei", "Lyu", email = "lyuyafei@gmail.com")
+Description: Build multiple-condition co-expression network by adaptively encouraging between condition similarities
+Imports:
+    glmnet
+Depends:
+    R (>= 3.3) 
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
