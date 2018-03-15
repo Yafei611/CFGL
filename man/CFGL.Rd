@@ -9,21 +9,46 @@ CFGL(Y, lambda1, lambda2, btc.screening = NULL, penalize.diag = c(TRUE,
   tol = 1e-04, truncate = 1e-05, loglik.trace = FALSE)
 }
 \arguments{
-\item{expr1}{A n*p matrix or data frame of normalized gene expression data. The rows correspond samples (n), the columns correspond genes (p).}
+\item{Y}{A list expression data which are n*p matrices. all matrices should have a same n and p.}
 
-\item{expr2}{The second gene expression data, should be in the same format, size as expr1.}
+\item{lambda1}{The tuning parameter for the graphical lasso penalty.}
 
-\item{s}{The tuning parameter for matrixes differences estimation, leave it as NULL to automatically select.}
+\item{lambda2}{The tuning parameter for the between condition group lasso penalty.}
 
-\item{s.seq}{The candidates for s selection.}
+\item{btc.screening}{A list of screening matrices (p*p) for between condition penalty. Can be obtained using the function \code{get_scr_mat}. When setting as NULL, the function will perform a standard fused graphical lasso.}
 
-\item{alpha}{Prespecified level of false discovery rate. A relatively loose criterion is suggested for determines screening matrix.}
+\item{penalize.diag}{Binary variables that determine whether lambda1 and lambda2 are applied to the diagonal of inverse matrices.}
 
-\item{verbose}{Set verbose to TURE to show details of s selection.}
+\item{rho}{Step size parameter for ADMM algorithm. Large values decrease the step size.}
+
+\item{rho.increment}{Adjustment for rho. In each ADMM iteration, rho will be updated as rho=rho*rho.increment.}
+
+\item{maxiter}{The maximum number of ADMM interactions.}
+
+\item{tol}{The criterion for ADMM convergence.}
+
+\item{truncate}{All value in the estimated inverse convenience below this number will be set to 0.}
+
+\item{loglik.trace}{Store trace of the likelihood of estimation in each iteration.}
+
+\item{weight}{Experimental features that assigning weights to each class. Leaving it as default (NULL) is suggested.}
+}
+\value{
+\code{CFGL} produces a list that contains estimated inverse matrices and other necessary components.
+\itemize{
+ \item{$theta} {The estimation of inverse matrices}
+ \item{$iters} {The numebr of ADMM iterations}
+ \item{$loglik.trace} {Trace of log-likelihood}
+}
 }
 \description{
-The function estimates differences between 2 precision matrixes. Then a multiple testing procedure with false discovery rate control will be applied to determine different entries between 2 matrixes. The testing result will be turned into a binary matrix which can be used as screening matrix for CFGL.
+The function jointly construct gene co-expression network for multiple class using Condition-adaptive Fused Graphical Lasso. Pairwise screening matrics are required to adjust between-condition lasso penalty.
 }
 \details{
-Please refer \bold{Yin et.al (2016). Testing differential networks with applications to the detection of gene-gene interactions. Biometrika(2015),pp. 1-20}
+Please refer \bold{An adaptive procedure for inferring condition-specific gene co-expression network }
+}
+\examples{
+x = expr
+plot(x[,1],x[,2],xlim=c(-8,8),ylim=c(-8,8),cex = .4);
+idr.out = IDR.3component(x = x)
 }
