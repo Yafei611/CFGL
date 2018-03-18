@@ -1,146 +1,87 @@
-### Overview
+# Project Title
 
-[![Build Status](https://travis-ci.org/rstudio/rmarkdown.svg?branch=master)](https://travis-ci.org/rstudio/rmarkdown)
+One Paragraph of project description goes here
 
-The **rmarkdown** package is a next generation implementation of R Markdown based on [pandoc](http://johnmacfarlane.net/pandoc/). This implementation brings many enhancements to R Markdown, including:
+## Getting Started
 
--   Create HTML, PDF, and MS Word documents as well as [Beamer](https://bitbucket.org/rivanvx/beamer/wiki/Home), [ioslides](https://code.google.com/p/io-2012-slides/), and [Slidy](http://www.w3.org/Talks/Tools/Slidy2/) presentations.
--   New markdown syntax including expanded support for tables, definition lists, and bibliographies.
--   Hooks for customizing HTML and PDF output (include CSS, headers, and footers).
--   Include raw LaTeX within markdown for advanced customization of PDF output.
--   Compile HTML, PDF, or MS Word notebooks from R scripts.
--   Extensibility: easily define new formats for custom publishing requirements.
--   Create interactive R Markdown documents using Shiny.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-Note that PDF output (including Beamer slides) requires an installation of TeX.
+### Prerequisites
 
-See the [R Markdown documentation](http://rmarkdown.rstudio.com/) for full details.
+What things you need to install the software and how to install them
 
-### Installation
-
-If you are working within RStudio then you can simply install the [current release](http://www.rstudio.com/ide/download/preview) of RStudio (both the rmarkdown package and pandoc are included).
-
-If you want to use the rmarkdown package outside of RStudio then you can install the package from CRAN as follows:
-
-```r
-install.packages("rmarkdown")
+```
+Give examples
 ```
 
-A recent version of pandoc (&gt;= 1.12.3) is also required. See the [pandoc installation instructions](PANDOC.md) for details on installing pandoc for your platform.
+### Installing
 
-### Usage
+A step by step series of examples that tell you have to get a development env running
 
-The `render` function is used to convert R Markdown (Rmd) files into various output formats (the default is HTML). Calling `render` will knit the specified input document and then produce the final output document using pandoc:
+Say what the step will be
 
-```r
-render("input.Rmd")
+```
+Give the example
 ```
 
-You can also specify a plain markdown file in which case knitting will be bypassed:
+And repeat
 
-```r
-render("input.md")
+```
+until finished
 ```
 
-#### Output Formats
+End with an example of getting some data out of the system or using it for a little demo
 
-R Markdown documents can contain a metadata section that includes both title, author, and date information as well as options for customizing output. For example, this metadata included at the top of an Rmd file adds a table of contents and chooses a different HTML theme:
+## Running the tests
 
-```yaml
----
-title: "Sample Document"
-output:
-  html_document:
-    toc: true
-    theme: united
----
+Explain how to run the automated tests for this system
+
+### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
 ```
 
-R Markdown has built in support for several output formats (HTML, PDF, and MS Word documents as well as Beamer presentations). These formats can also be specified in metadata, for example:
+### And coding style tests
 
-```yaml
----
-title: "Sample Document"
-output:
-  pdf_document:
-    toc: true
-    highlight: zenburn
----
+Explain what these tests test and why
+
+```
+Give an example
 ```
 
-If you aren't specifying format options you can also just use a simple format name:
+## Deployment
 
-```yaml
----
-title: "Sample Document"
-output: pdf_document
----
-```
+Add additional notes about how to deploy this on a live system
 
-Multiple formats can be specified in metadata:
+## Built With
 
-```yaml
----
-title: "Sample Document"
-output:
-  html_document:
-    toc: true
-    theme: united
-  pdf_document:
-    toc: true
-    highlight: zenburn
----
-```
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
 
-To select from the various formats defined you can pass a format name to `render`. For example:
+## Contributing
 
-```r
-render("input.Rmd", "pdf_document")
-```
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-If no explicit format name is passed to `render` then the first one defined will be used. You can also render all formats defined in the file with:
+## Versioning
 
-```r
-render("input.Rmd", "all")
-```
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-#### Shared Output Formats
+## Authors
 
-You can also define output formats externally in a file named `_output.yml` located in the same directory as the R Markdown source file. For example:
+* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
-```yaml
-html_document:
-  toc: true
-  theme: united
-pdf_document:
-  toc: true
-  highlight: zenburn
-```
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-Using an `_output.yml` file is a good way to share output settings across multiple R Markdown files in the same directory.
+## License
 
-#### Output Format Functions
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
 
-Output formats need not be specified in metadata. In fact, metadata is just a convenient way to invoke functions that implement output formats. There are seven built-in output formats each exported as a function from the package:
+## Acknowledgments
 
--   `html_document`
--   `pdf_document`
--   `word_document`
--   `md_document`
--   `beamer_presentation`
--   `ioslides_presentation`
--   `slidy_presentation`
-
-As you'd expect, these functions can also be invoked as part of the call to `render`, for example:
-
-```r
-render("input.Rmd", html_document(toc = TRUE))
-render("input.Rmd", pdf_document(latex_engine = "lualatex"))
-render("input.Rmd", beamer_presentation(incremental = TRUE))
-```
-
-For more details on the options available for each format see their respective help topics.
-
-### License
-
-The **rmarkdown** package is licensed under the GPLv3 (<http://www.gnu.org/licenses/gpl.html>).
+* Hat tip to anyone who's code was used
+* Inspiration
+* etc
