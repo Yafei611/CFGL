@@ -48,7 +48,12 @@ The function jointly construct gene co-expression network for multiple class usi
 Please refer \bold{An adaptive procedure for inferring condition-specific gene co-expression network }
 }
 \examples{
-x = expr
-plot(x[,1],x[,2],xlim=c(-8,8),ylim=c(-8,8),cex = .4);
-idr.out = IDR.3component(x = x)
+x <- expr
+temp <- get_scr_mat(expr1 = x[[1]],expr2 = x[[2]])
+scr.mat <- temp$scr.mat
+scr.n <- sum(scr.mat)
+s.sl <- temp$s
+
+temp = CFGL(expr, lambda1 = 0.0008, lambda2 = 0.0008, btc.screening = scr.mat)
+theta <- temp$theta
 }
