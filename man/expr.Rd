@@ -4,13 +4,13 @@
 \name{expr}
 \alias{expr}
 \title{Gene expression data for 2 rat tissues}
-\format{A data list that containing 2 dataframes
+\format{A data list that containing 2 data matrices
 \describe{
   \item{brain}{expression levels of 100 gene for brain tissue}
   \item{heart}{expression levels of 100 gene for heart tissue}
 }}
 \source{
-More detailed information can be found in [http://phenogen.ucdenver.edu].
+More detailed information can be found in [PhenoGen website](http://phenogen.ucdenver.edu).
 }
 \usage{
 expr
