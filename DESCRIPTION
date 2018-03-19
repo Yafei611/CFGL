@@ -1,9 +1,9 @@
 Package: CFGL
 Type: An adaptive procedure for inferring condition-specific gene co-expression network
-Title: What the Package Does (Title Case)
+Title: An adaptive procedure for inferring condition-specific gene co-expression network
 Version: 0.9.0
 Authors@R: c(person("Yafei", "Lyu", role = c("aut", "cre"),email = "yul199@psu.edu"),
-	      person("Qunhua", "Li", role = "aut",email = "yul199@psu.edu"))
+	      person("Qunhua", "Li", role = "aut",email = "qunhua.li@psu.edu"))
 Maintainer@R: person("Yafei", "Lyu", email = "lyuyafei@gmail.com")
 Description: Build multiple-condition co-expression network by adaptively encouraging between condition similarities
 Imports:
