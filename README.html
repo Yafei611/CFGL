@@ -121,79 +121,30 @@ $(document).ready(function () {
 </div>
 
 
-<div id="project-title" class="section level1">
-<h1>Project Title</h1>
-<p>One Paragraph of project description goes here</p>
-<div id="getting-started" class="section level2">
-<h2>Getting Started</h2>
-<p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
-<div id="prerequisites" class="section level3">
-<h3>Prerequisites</h3>
-<p>What things you need to install the software and how to install them</p>
-<pre><code>Give examples</code></pre>
+<div id="condition-adaptive-fused-graphical-lasso" class="section level1">
+<h1>Condition-adaptive Fused Graphical Lasso</h1>
+<p>CFGL is a tool to jointly construct co-expression networks for gene expression profiles from multiple conditions. By using a data-driven approach to capturing condition-specific co-expression patterns, this method is effective in identifying both co-expression patterns that are specific to a condition and that are common across conditions.</p>
+<div id="installing" class="section level2">
+<h2>Installing</h2>
+<p>The package can be installed from github. R package <strong>devtools</strong> is required.</p>
+<pre><code>library(devtools)
+install_github(&quot;Yafei611/CFGL&quot;)
+library(CFGL)</code></pre>
 </div>
-<div id="installing" class="section level3">
-<h3>Installing</h3>
-<p>A step by step series of examples that tell you have to get a development env running</p>
-<p>Say what the step will be</p>
-<pre><code>Give the example</code></pre>
-<p>And repeat</p>
-<pre><code>until finished</code></pre>
-<p>End with an example of getting some data out of the system or using it for a little demo</p>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<div id="determine-a-screening-matrix" class="section level3">
+<h3>determine a screening matrix</h3>
+<p>The screening matrix can be determine by using external information. If external information is absent, the screening matrix can be calculated as following:</p>
+<pre><code>x &lt;- expr
+temp &lt;- get_scr_mat(expr1 = x[[1]],expr2 = x[[2]])
+scr.mat &lt;- temp$scr.mat</code></pre>
 </div>
+<div id="perform-cfgl" class="section level3">
+<h3>perform CFGL</h3>
+<pre><code>temp = CFGL(expr, lambda1 = 0.0008, lambda2 = 0.0008, btc.screening = scr.mat)
+theta &lt;- temp$theta</code></pre>
 </div>
-<div id="running-the-tests" class="section level2">
-<h2>Running the tests</h2>
-<p>Explain how to run the automated tests for this system</p>
-<div id="break-down-into-end-to-end-tests" class="section level3">
-<h3>Break down into end to end tests</h3>
-<p>Explain what these tests test and why</p>
-<pre><code>Give an example</code></pre>
-</div>
-<div id="and-coding-style-tests" class="section level3">
-<h3>And coding style tests</h3>
-<p>Explain what these tests test and why</p>
-<pre><code>Give an example</code></pre>
-</div>
-</div>
-<div id="deployment" class="section level2">
-<h2>Deployment</h2>
-<p>Add additional notes about how to deploy this on a live system</p>
-</div>
-<div id="built-with" class="section level2">
-<h2>Built With</h2>
-<ul>
-<li><a href="http://www.dropwizard.io/1.0.2/docs/">Dropwizard</a> - The web framework used</li>
-<li><a href="https://maven.apache.org/">Maven</a> - Dependency Management</li>
-<li><a href="https://rometools.github.io/rome/">ROME</a> - Used to generate RSS Feeds</li>
-</ul>
-</div>
-<div id="contributing" class="section level2">
-<h2>Contributing</h2>
-<p>Please read <a href="https://gist.github.com/PurpleBooth/b24679402957c63ec426">CONTRIBUTING.md</a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
-</div>
-<div id="versioning" class="section level2">
-<h2>Versioning</h2>
-<p>We use <a href="http://semver.org/">SemVer</a> for versioning. For the versions available, see the <a href="https://github.com/your/project/tags">tags on this repository</a>.</p>
-</div>
-<div id="authors" class="section level2">
-<h2>Authors</h2>
-<ul>
-<li><strong>Billie Thompson</strong> - <em>Initial work</em> - <a href="https://github.com/PurpleBooth">PurpleBooth</a></li>
-</ul>
-<p>See also the list of <a href="https://github.com/your/project/contributors">contributors</a> who participated in this project.</p>
-</div>
-<div id="license" class="section level2">
-<h2>License</h2>
-<p>This project is licensed under the MIT License - see the <a href="LICENSE.md" class="uri">LICENSE.md</a> file for details</p>
-</div>
-<div id="acknowledgments" class="section level2">
-<h2>Acknowledgments</h2>
-<ul>
-<li>Hat tip to anyone who’s code was used</li>
-<li>Inspiration</li>
-<li>etc</li>
-</ul>
 </div>
 </div>
 
