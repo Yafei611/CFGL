@@ -1,3 +1,12 @@
+---
+title: "Put the title of your vignette here"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Put the title of your vignette here}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+---
+
 # Condition-adaptive Fused Graphical Lasso
 
 CFGL is a tool to jointly construct co-expression networks for gene expression profiles from multiple conditions. By using a data-driven approach to capturing condition-specific co-expression patterns, this method is effective in identifying both co-expression patterns that are specific to a condition and that are common across conditions. 

@@ -10,7 +10,7 @@
   \item{heart}{expression levels of 100 gene for heart tissue}
 }}
 \source{
-More detailed information can be found in [PhenoGen website](http://phenogen.ucdenver.edu).
+More detailed information can be found in PhenoGen website (http://phenogen.ucdenver.edu).
 }
 \usage{
 expr

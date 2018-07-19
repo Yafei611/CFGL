@@ -6,11 +6,15 @@ Authors@R: c(person("Yafei", "Lyu", role = c("aut", "cre"),email = "yul199@psu.e
 	      person("Qunhua", "Li", role = "aut",email = "qunhua.li@psu.edu"))
 Maintainer@R: person("Yafei", "Lyu", email = "lyuyafei@gmail.com")
 Description: Build multiple-condition co-expression network by adaptively encouraging between condition similarities
-Imports:
-    glmnet
 Depends:
     R (>= 3.3) 
+Imports:
+    glmnet
+Suggests: 
+    knitr, 
+    rmarkdown
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
