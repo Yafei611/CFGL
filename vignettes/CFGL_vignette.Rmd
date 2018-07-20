@@ -1,8 +1,9 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Description of CFGL package"
+author: "Yafei Lyu"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+theme: united
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}
@@ -16,50 +17,77 @@ knitr::opts_chunk$set(
 )
 ```
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+Condition-adaptive fused graphical lasso (CFGL) is a data-driven approach to incorporate condition specificity in the estimation of co-expression networks. More details can be found in  https://www.biorxiv.org/content/early/2018/03/28/290346
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
 
-## Vignette Info
+The CFGL package is an implementation of condition-adaptive fused graphical lasso method. It allows you:
 
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+- Build co-expression network for multiple biological conditions simultaneously
+- Build tissue-specific or shared networks
+- Visualize co-expression network and get hub genes
 
-## Styles
+This document introduces you an example of CFGL application. It shows you how to build a co-expression network with CFGL using multi-condition expression data. Also, several functions for co-expression network exploratory analysis and visualization are presented.
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+## Install the package
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+The package can be installed from Github. R package **devtools** is required. By specifying `build_vignettes = T` to create a vignettes for the CFGL. Note that the CFGL depends two other packages: **glmnet** and **igraph**.
 
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+```{r, message = FALSE}
+library(devtools)
+#install_github("Yafei611/CFGL", build_vignettes = T)
+library(CFGL)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+## Input data
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
+The input data for the CFGL should be a list of multiple matrices. Each matrix corresponding an expression data set for one biological condition.  The row of the matrix corresponds to the samples while the column corresponds to the features (genes/transcripts). Also, the data should satisfy the following requirements:
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
+- The matrix columns must be a same set of features across conditions and in the same sequence.
+- The expression data should be approximately normally distributed. It can be either array intensity or log scaled read counts.
+- The expression data should be properly cleaned and normalized before the analysis.
 
-## More Examples
+In the example, we use rat expresion data for brain and heart. The data contain 19 rat strain for each tissue and 100 gene are randomly selected for the analysis.
 
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r,include = T}
+x <- expr                       # Get the preloaded data
+gname <- colnames(x[[1]])       # Get the name of genes
+str(x)                          # Check the data
 ```
 
-Also a quote using `>`:
+## Determine the screening matrix
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+CFGL allows users to provide external information of condition-specificity which named as screening matrix. The screening matrix is a binary matrix controls whether similarity should or should not be encouraged between each pair of condition for each edge. 
+
+The screening matrix can be obtained by using the external information from public databases, like KEGG, COXPRESdb or MSigDB depend on the research question and expression dataset. When such information is not available, we also provided a function `get_scr_mat` to calculate a screening matrix.
+
+In this example, we use the `get_scr_mat` to determine a screening matrix.
+
+```{r}
+temp <- get_scr_mat(expr1 = x[[1]],expr2 = x[[2]])
+scr.mat <- temp$scr.mat
+```
+CFGL can work without screening matrix. When `scr.mat` is absent, CFGL is equavalent to Fused Graphical Lasso (FGL). 
+
+## Perform CFGL
+
+Now, we perform network analysis using function `CFGL`. CFGL estimates the conditional dependency (precision matrix) among features. To run 'CFGL', one need to specify two tuning parameter `lam1` and `lam2` and a screening matrix (optional).
+
+```{r}
+lam1=0.0006
+lam2=0.0004
+temp = CFGL(expr, lambda1 = lam1, lambda2 = lam2, btc.screening = scr.mat)
+theta <- temp$theta
+```
+
+`CFGL` returns a list of objects, and the `theta` is the estimated precision matrices which describe dependency among features. Since the example data contains two set of expression data for heart and brain, the `theta` is a list of two matrices correspondingly.
+
+Then, we calculated the conditional correlation based on the `theta`. The conditional correlation quantifies the conditional dependence between the features.
+
+```{r}
+rmat <- theta2rmat(theta) 
+```
+
+## Tunning parameters selection
+
+Runing CFGL analysis involves tuning parameter seceltion. We suggest to perfrom CFGL with a series tunning paraters and select result according to minimal BIC certieron.
+
