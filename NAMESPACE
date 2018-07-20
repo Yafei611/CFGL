@@ -2,4 +2,9 @@
 
 export(CFGL)
 export(get_scr_mat)
+export(get_sp_net_2t)
+export(get_sp_net_3t)
+export(get_top_node)
+export(show_net)
+export(theta2rmat)
 import(glmnet)

@@ -9,10 +9,9 @@ Description: Build multiple-condition co-expression network by adaptively encour
 Depends:
     R (>= 3.3) 
 Imports:
-    glmnet
+    glmnet, igraph
 Suggests: 
-    knitr, 
-    rmarkdown
+    knitr, rmarkdown
 License: GPL-2
 Encoding: UTF-8
 LazyData: true
