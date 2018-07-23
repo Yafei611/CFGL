@@ -17,5 +17,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-Condition-adaptive fused graphical lasso (CFGL) is a data-driven approach to incorporate condition specificity in the estimation of co-expression networks. More details can be found in  https://www.biorxiv.org/content/early/2018/03/28/290346
+Condition-adaptive fused graphical lasso (CFGL) is a data-driven approach to incorporate 
+condition specificity in the estimation of co-expression networks. More details can be found in 
+ https://www.biorxiv.org/content/early/2018/03/28/290346
 
+
+The CFGL package is an implementation of condition-adaptive fused graphical lasso method. It 
+allows you:
+
+- Build co-expression network for multiple biological conditions simultaneously
+- Build tissue-specific or shared networks
+- Visualize co-expression network and get hub genes
+
+This document introduces you an example of CFGL application. It shows you how to build a co-
+expression network with CFGL using multi-condition expression data. Also, several functions for 
+co-expression network exploratory analysis and visualization are presented.
+
+## Install the package
+
+The package can be installed from Github. R package **devtools** is required. By specifying 
+`build_vignettes = T` to create a vignettes for the CFGL. Note that the CFGL depends two other 
+packages: **glmnet** and **igraph**.
+
+```{r, message = FALSE}
+library(devtools)
+install_github("Yafei611/CFGL", build_vignettes = T)
+library(CFGL)
+```
