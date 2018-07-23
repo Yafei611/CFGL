@@ -91,3 +91,54 @@ rmat <- theta2rmat(theta)
 
 Runing CFGL analysis involves tuning parameter seceltion. We suggest to perfrom CFGL with a series tunning paraters and select result according to minimal BIC certieron.
 
+
+## Network visualization
+
+One can visualize the constructed network using R package **igraph**. Here, we show the codes that visualize networking using **igraph**. Now, let check the network for heart tissue.
+
+
+```{r, message = FALSE, fig.width=7, fig.height=4}
+library("igraph")
+
+nt <- rmat[[1]]
+colnames(nt) <- gname
+
+lb <- rowSums(nt|nt)!=0              
+nt <- nt[which(lb),which(lb)]                           # removing unlinked nodes
+
+ntp <- graph_from_adjacency_matrix(nt,weighted = T)     # turning the matrix into network
+
+V(ntp)$color = "firebrick1"                             # defining attributions of nodes
+V(ntp)$size = 4
+V(ntp)$label=V(ntp)$name
+V(ntp)$label.cex=0.7
+V(ntp)$label.color="black"
+
+E(ntp)$arrow.size =0                                    # defining attributions of edges
+E(ntp)$color = "gray60"
+E(ntp)$width=1.5
+
+par(mar=c(0,0,0,0))
+plot(ntp,layout=layout.graphopt)
+```
+
+For a quick check, one can also use the warpper function in **CFGL** package. Now we check the network for the brain tissue.
+
+```{r, message = FALSE, fig.width=7, fig.height=4}
+show_net(rmat[[2]],gname = gname)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

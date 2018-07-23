@@ -160,7 +160,8 @@ show_net <- function(mat,gname=c(1:dim(mat)[1])){
   E(ntp)$color = "gray60"
   E(ntp)$width=1.5
   
-  plot(ntp,layout=layout.fruchterman.reingold)
+  par(mar=c(0,0,0,0))
+  plot(ntp,layout=layout.graphopt)
 }
 
 
