@@ -39,7 +39,7 @@ The package can be installed from Github. R package **devtools** is required. By
 `build_vignettes = T` to create a vignettes for the CFGL. Note that the CFGL depends two other 
 packages: **glmnet** and **igraph**.
 
-```{r, message = FALSE}
+```{r, message = FALSE,eval = FALSE}
 library(devtools)
 install_github("Yafei611/CFGL", build_vignettes = T)
 library(CFGL)
