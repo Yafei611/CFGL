@@ -145,13 +145,13 @@ names(rmat.sp)
 - 't2s' :  network contains edges that only appeared in the tissue 2
 - 't12' :  network contains edges that shared by 2 tissues
 
-Let check the brain specific network
+Let us check the brain specific network
 
 ```{r, message = FALSE, fig.width=7, fig.height=4}
 show_net(rmat.sp$t1s,gname)
 ```
 
-For a list of three networks. One can get tissue-specific network using `get_sp_net_3t`. For a list of four or more tissue, the function for listing all tissue-specific/shared network is not provided, since there are too many combinations. Writing your own code to get network shared by particular tissues are suggested.
+For a list of three networks. One can get tissue-specific network using `get_sp_net_3t`. For a list of four or more tissues, the functions for listing all tissue-specific/shared network are not provided, since there are too many combinations. Writing your own code to get network shared by particular tissues are suggested.
 
 
 ## Get network hubs
