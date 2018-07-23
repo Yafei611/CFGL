@@ -75,4 +75,79 @@ rmat <- theta2rmat(theta)
 Runing CFGL analysis involves tuning parameter seceltion. We suggest to perfrom CFGL with a series tunning paraters and select result according to minimal BIC certieron.
 
 
+## Network visualization
+
+One can visualize the constructed network using R package **igraph**. Here, we show the codes that visualize networking using **igraph**. Now, let check the network for heart tissue.
+
+
+```{r, message = FALSE, fig.width=7, fig.height=4}
+library("igraph")
+
+nt <- rmat[[1]]
+colnames(nt) <- gname
+
+lb <- rowSums(nt|nt)!=0              
+nt <- nt[which(lb),which(lb)]                           # removing unlinked nodes
+
+ntp <- graph_from_adjacency_matrix(nt,weighted = T)     # turning the matrix into network
+
+V(ntp)$color = "firebrick1"                             # defining attributions of nodes
+V(ntp)$size = 4
+V(ntp)$label=V(ntp)$name
+V(ntp)$label.cex=0.7
+V(ntp)$label.color="black"
+
+E(ntp)$arrow.size =0                                    # defining attributions of edges
+E(ntp)$color = "gray60"
+E(ntp)$width=1.5
+
+par(mar=c(0,0,0,0))
+plot(ntp,layout=layout.graphopt)
+```
+
+For a quick check, one can also use the wrapper function in **CFGL** package. Now we check the network for the brain tissue.
+
+```{r, message = FALSE, fig.width=7, fig.height=4}
+show_net(rmat[[2]],gname = gname)
+```
+
+Check http://igraph.org/redirect.html to find more information of **igraph**.
+
+## Tissue-specific/-shared network
+
+Once can obtain tissue-specific or shared network using the function `get_sp_net_2t`. This function takes a list of two matrices (network) as input and output tissue-specific or shared network.
+
+```{r}
+rmat.sp <- get_sp_net_2t(rmat) 
+names(rmat.sp)
+```
+
+- 't1'  : network for tissue 1
+- 't2'  : network for tissue 2
+- 't1s' :  network contains edges that only appeared in the tissue 1
+- 't2s' :  network contains edges that only appeared in the tissue 2
+- 't12' :  network contains edges that shared by 2 tissues
+
+Let check brain specific network
+
+```{r, message = FALSE, fig.width=7, fig.height=4}
+show_net(rmat.sp$t1s,gname)
+```
+
+For a list of three networks. One can get tissue-specific network using `get_sp_net_3t`. For a list of four or more tissue, the function for listing all tissue-specific/shared network is not provided, since there are too many combinations. Writing your own code to get network shared by particular tissues are suggested.
+
+
+## Get network hubs
+
+Nodes that have many connections are called hubs. Network hubs can be obtained using function `get_top_node`. The function will count the connections for each node and lists nodes have the most connections.
+
+Here, we list top hubs for brain and heart-specific networks.
+
+```{r}
+get_top_node(rmat.sp$t1s,topn = 5,gname)
+get_top_node(rmat.sp$t2s,topn = 5,gname)
+```
+
+## Contributing
+We are continuing to add new features. Any kind of contribution, like bug reports or feature requests,is welcome.
 
