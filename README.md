@@ -1,5 +1,24 @@
 # Condition-adaptive Fused Graphical Lasso
 
+---
+title: "Description of CFGL package"
+author: "Yafei Lyu"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+theme: united
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
 Condition-adaptive fused graphical lasso (CFGL) is a data-driven approach to incorporate condition specificity in the estimation of co-expression networks. More details can be found in  https://www.biorxiv.org/content/early/2018/03/28/290346
 
 
@@ -150,4 +169,5 @@ get_top_node(rmat.sp$t2s,topn = 5,gname)
 
 ## Contributing
 We are continuing to add new features. Any kind of contribution, like bug reports or feature requests,is welcome.
+
 
