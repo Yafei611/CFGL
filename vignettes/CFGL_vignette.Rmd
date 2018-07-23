@@ -145,7 +145,7 @@ names(rmat.sp)
 - 't2s' :  network contains edges that only appeared in the tissue 2
 - 't12' :  network contains edges that shared by 2 tissues
 
-Let check brain specific network
+Let check the brain specific network
 
 ```{r, message = FALSE, fig.width=7, fig.height=4}
 show_net(rmat.sp$t1s,gname)

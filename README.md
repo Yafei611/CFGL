@@ -17,7 +17,7 @@ The package can be installed from Github. R package **devtools** is required. By
 
 ```{r, message = FALSE}
 library(devtools)
-#install_github("Yafei611/CFGL", build_vignettes = T)
+install_github("Yafei611/CFGL", build_vignettes = T)
 library(CFGL)
 ```
 
@@ -128,7 +128,7 @@ names(rmat.sp)
 - 't2s' :  network contains edges that only appeared in the tissue 2
 - 't12' :  network contains edges that shared by 2 tissues
 
-Let check brain specific network
+Let the check brain specific network
 
 ```{r, message = FALSE, fig.width=7, fig.height=4}
 show_net(rmat.sp$t1s,gname)
