@@ -55,8 +55,8 @@ get_diff_W <- function(expr1,expr2,s=2,tri=F){
     temp2 <- glmnet(x2,y2,family = "gaussian",alpha = 1, lambda = lam2)
     b2[,i] <- as.matrix(coefficients(temp2)[-1])
     
-    c1[,i] <- y1-mean(y1)-(x1-colMeans(x1))%*%b1[,i]
-    c2[,i] <- y2-mean(y2)-(x2-colMeans(x2))%*%b2[,i]
+    c1[,i] <- y1-mean(y1) - (x1–rep(1,nrow(x1))%*%t(colMeans(x1))) %*%b1[,i]
+    c2[,i] <- y2-mean(y2) - (x2-rep(1,nrow(x2))%*%t(colMeans(x2))) %*%b2[,i]
   }
   
   r1 <- t(c1)%*%c1/n1
@@ -67,7 +67,7 @@ get_diff_W <- function(expr1,expr2,s=2,tri=F){
   for (i in 1:(p-1)){
     for (j in (i+1):p){
       T1[i,j] <- (r1[i,j]+s1[i]*b1[i,j]+s1[j]*b1[j-1,i])/(r1[i,i]*r1[j,j])
-      T2[i,j] <- (r2[i,j]+s2[i]*b2[i,j]+s2[j]*b2[j-1,i])/(r2[i,i]*r1[j,j])
+      T2[i,j] <- (r2[i,j]+s2[i]*b2[i,j]+s2[j]*b2[j-1,i])/(r2[i,i]*r2[j,j])
       W[i,j]  <- (T1[i,j]-T2[i,j])/
         sqrt(  (1+b1[i,j]^2*r1[i,i]/r1[j,j]) / (r1[i,i]*r1[j,j]*n1) + (1+b2[i,j]^2*r2[i,i]/r2[j,j]) / (r2[i,i]*r2[j,j]*n2) )
     }
